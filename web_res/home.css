@@ -4,13 +4,19 @@
 
 body {
     font-family: 'Courier New', Courier, monospace;
-    background-color: #14ff14;  
+    /*background-color: transparent;*/
 
     /*background-color: rgb(203, 224, 231); */
 
     position: fixed;
     width: 99%;
     height: 99%;
+}
+
+#bkgrnd{
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 /* style for the header */
@@ -37,6 +43,13 @@ body {
     z-index: 1;
 }
 
+#navbox {
+    margin: 0 auto;
+    margin-top:5%;
+    max-width: 200px;
+    max-height: 200px;
+    justify-content: center;
+}
 
 /*
     xstyle the list inside the nav menu
@@ -81,6 +94,28 @@ article {
     overflow-x: hidden;
     min-width: 60%;
 
+}
+
+#nav2h{
+    float: top;
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+}
+
+#nav2hbox{
+    float: left;
+    background-color: rgb(38, 70, 83);
+    width: 20%;
+    height: 60%;
+    justify-content: center;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#nav2hbox:hover{
+    background-color: pink;
+    color: slategray;
 }
 
 #mainArticleBody h2 {

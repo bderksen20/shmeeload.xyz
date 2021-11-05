@@ -11,9 +11,9 @@
     <meta name="apple-mobile-web-app-title" content="Progressive Web app">
 
     <meta name="theme-color" content="#f0f8ff"/>
-    <meta name="description" content="Home landing page for Alex Johnson.  Hosting my resume and some portfolio applications.  Author: Alex Johnson" />
+    <meta name="description" content="Home landing page for Bill Derksen. Hosting my resume and some portfolio applications.  Author: Bill Derksen" />
 
-    <title>shmeeload</title>
+    <title>derk</title>
 
     <link rel="stylesheet" type="text/css"  href="{{.Host}}/static/css/home.css"/>
     <link rel="manifest" href="{{.Host}}/manifest.json">
@@ -31,58 +31,233 @@
     <script src="{{.Host}}/static/js/app.js" defer></script>
 
 </head>
-<body style="background-image: url('{{.Host}}/static/img/horse.jpg');">
+<!-- style="background-image: url({{.Host}}/static/img/tex_sample_artifact.png)" -->
+<body id="bigbody" style="background-image: url({{.Host}}/static/img/tex_sample_artifact.png)">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <section class="scroll">
-    <nav id="nav">
-      <header id="header">alex johnson</header>
-      <ul>
-        <li class="navLink"><a  href="{{.Host}}/resume/home">resume</a></li>
-        <li class="navLink"><a  href="{{.Host}}/tunes/home">tunes</a></li>
-        <li class="navLink"><a  href="https://github.com/aljo242" target="_blank" rel="noopener noreferrer">github</a></li>
-        <li class="navLink"><a  href="{{.Host}}/chat/home">chat</a></li>
-        <li class="navLink"><a  href="{{.Host}}/hall-of-art/home">hall of art</a></li>
-        <li class="navLink"><a  href="{{.Host}}/shop/home">shoppers</a></li>
-      </ul>
+  <!-- Webpage background canvas/render -->
+  <canvas id="bkgrnd" style="background-image: url({{.Host}}/static/img/tex_sample_artifact.png)" >  
+    <script>
 
-      <footer id="nav_footer">
-        <div id="copy">
-          &copy; shmeelabs
+      //-- grab the canvas + gen scene
+      const container = document.getElementById('bkgrnd');
+      const scene = new THREE.Scene()
+      //scene.background = new THREE.Color('black');
+
+      //-- setup camera
+      const aspect = container.clientWidth / container.clientHeight;
+      var camera = new THREE.PerspectiveCamera( 75, aspect, 0.1, 100 );
+      camera.position.set(0, 0, 30);
+
+      const texx = new THREE.TextureLoader().load('{{.Host}}/static/img/tex_sample_artifact.png');
+
+      //-- setup stuff to render + add to scene
+      const geometry = new THREE.SphereGeometry( 15, 32, 16 );
+      const material = new THREE.MeshStandardMaterial( { color: 0xff0000 , metalness: 0.5, roughness: 0, map: texx} );
+      var sphere = new THREE.Mesh( geometry, material );
+      scene.add( sphere );
+
+      // const geometry = new THREE.SphereGeometry();
+      // const material = new THREE.MeshPhysicalMaterial( { color: 0x00ff00, clearcoat: 1.0 } );
+      // const blob = new THREE.Mesh( geometry, material );
+      // scene.add( blob );
+
+      //-- add some lights
+      const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+      scene.add( ambientLight );
+      const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+      directionalLight.position.set(0,0,30);
+      scene.add( directionalLight );
+
+      //-- setup renderer
+      var renderer = new THREE.WebGLRenderer({antialias:true, canvas: container, alpha: true});
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      //renderer.setSize(window.innertWidth, window.innerHeight);
+      renderer.shadowMapEnabled = true;
+
+      var time = 0;
+      window.addEventListener( 'resize', onWindowResize, false );
+      render();
+
+      //-- render loop
+      function render(){
+        time += 1 / 2*Math.PI / 100;
+        //resizeCanvasToDisplaySize();
+        requestAnimationFrame( render );  
+
+        //blobify();
+        sphere.rotation.y += 0.01;
+        sphere.position.x = Math.cos(time) * 20;
+        renderer.render(scene, camera);
+       };
+
+       //-- fun function to mess w geometry positions a bit
+       function blobify(){
+        var k = 3;
+        var position = sphere.geometry.attributes.position;
+        var p = new THREE.Vector3();
+
+        for (var i = 0; i < position.count; i++) {
+            p.fromBufferAttribute( position, i );
+            p.normalize().multiplyScalar(Math.random()*5 + 1);
+          }
+          sphere.geometry.computeVertexNormals();
+          sphere.geometry.normalsNeedUpdate = true;
+          sphere.geometry.verticesNeedUpdate = true;
+      }
+
+       //-- resize along with window accordingly
+       function onWindowResize(){
+        camera.aspect = container.clientWidth / container.clientHeight
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+       };
+
+  </script>
+  </canvas>
+    <section class="scroll">
+      <nav id="nav">
+        <header id="header"><b>bill derksen</b></header>
+        <div class="github">
+          <p><a href="https://github.com/bderksen20" style="text-decoration: none">github</a></p>
         </div>
-        <div id="bonus_button">
-          <!--<button id="testHomeButton" style="float:center;">Click Me!</button>-->
-          <input width="100" height="100" type="image" id="secretButton" src="{{.Host}}/static/img/turbo_shadow_pixel_OG5.png" alt="shhhhh its a secret"/>
+        <div id="navbox" style="background-color: #fcd4b0">
+          <img id="derk" width="200" height="200" src="{{.Host}}/static/img/derk_animated.gif" alt="it's me!"/>
         </div>
-      </footer>
-    </nav>
+        <div id="navbox">
+          <img id="fishyGif" width="200" height="200" src="{{.Host}}/static/img/ultra_rare_fish.gif" alt="cool gif"/>
+        </div>
+        <div id="navbox" style="background-color: #fcd4b0">
+          <canvas id="canvas" style="margin: 5px;">
+            <script type="module">
+  
+              //-- CDN imports... todo: this is dumb don't do this, use local three.js instead
+              import {OrbitControls} from 'https://cdn.skypack.dev/three@0.130.1/examples/jsm/controls/OrbitControls.js';
+              //import {ColladaLoader} from 'https://cdn.skypack.dev/three@0.130.1/examples/jsm/loaders/ColladaLoader.js';
+              import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.130.1/examples/jsm/loaders/GLTFLoader.js';
+              
+              let drawSpace, camera, scene, renderer, model, controls;
+              let tex1, tex2, tex3, tex4;
+  
+              window.addEventListener('mousemove', onMouseMove);
+              init();
+              render();
+  
+              function init(){
+                drawSpace = document.getElementById('canvas');
+  
+                //-- load textures
+                tex2 = new THREE.TextureLoader().load('{{.Host}}/static/img/sliced_phong.png');
+                tex1 = new THREE.TextureLoader().load('{{.Host}}/static/img/tex_sample_artifact.png');
+  
+                //-- prime scene and camera
+                scene = new THREE.Scene();
+                scene.background = tex2;
+                camera = new THREE.PerspectiveCamera( 70, drawSpace.clientWidth/drawSpace.clientHeight, 1, 1000 );
+                
+                const mat1 = new THREE.MeshLambertMaterial ({
+                    map: tex1,    
+                    envMap: scene.background,      
+                    combine: THREE.MixOperation,     
+                    reflectivity: .5     
+                });
+                const mat2 = new THREE.MeshBasicMaterial( { map: tex2, side: THREE.DoubleSide } );
+  
+                const loadingManager = new THREE.LoadingManager( function () {
+                  scene.add( model );
+                } );
+  
+                const loader = new GLTFLoader(loadingManager);
+                loader.load('{{.Host}}/static/model/kasa_obake.gltf', function ( gltf ) {
+                  model = gltf.scene;
+                  model.children[0].children[3].material = mat1;
+                  model.children[0].children[5].material = mat2;
+                  model.position.set(0,-2.5,0);
+                  //-- update materials
+                  console.log(gltf);
+  
+                } );
+  
+                const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+                scene.add( ambientLight );
+                //const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
+                //directionalLight.position.set( 1, 1, 0 ).normalize();
+                //scene.add( directionalLight );
+  
+                            
+                //-- prime renderer
+                renderer = new THREE.WebGLRenderer({ antialias: true, canvas: drawSpace, logarithmicDepthBuffer: true});
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setSize( 190, 190 );
+  
+                //renderer.outputEncoding = THREE.sRGBEncoding;
+                //renderer.outputEncoding = THREE.sRGBEncoding;
+                //drawSpace.appendChild(renderer.domElement);
+                //document.body.appendChild( renderer.domElement );
+  
+                                  //-- prime orbit controls
+                                  controls = new OrbitControls(camera, renderer.domElement);
+  
+                camera.position.set( 3, 2, 3 );
+                camera.lookAt( 0, 0, 0 );
+                controls.update();
+  
+                //-- prime cube to render
+                //const geometry = new THREE.BoxGeometry();
+                //const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+                //const cube = new THREE.Mesh( geometry, material );
+                //scene.add( cube );
+  
+              }
+          
+              //-- Render function/loop
+              function render(){
+                  //resizeCanvasToDisplaySize();
+                  requestAnimationFrame( render );
+          
+                  model.rotation.y += 0.01;
+          
+                  controls.update();
+                  renderer.render(scene, camera);
+              };
 
-    <article id="mainArticleBody">
-      <div id= "float_about_container">
-        <div id="about_me_section">
-          <div class="TextSubsection">
-            <p>Hi, welcome to my personal site. I’ve only been working on this for the past 2 months so please pardon any bugs! By developing the backend and frontend from scratch, I’ve been able to learn so much about Golang, TypeScript, efficient web-serving and application-layer protocols like HTTP and WebSockets.</p>
-            <p>Please enjoy exploring this site – there might even be some secrets.</p>
+              function onMouseMove(event){
+                // var theta = Math.tan(event.pageY/ (event.pageX - 20));
+                // if (theta > 90) theta = 90;
+                // if (theta < 0) theta = 0;
+                // model.rotation.z = theta;
+                // model.rotation.x = theta;
+              }
+              
+            </script>
+          </canvas>
+        </div>
+      </nav>
+  
+      <article id="mainArticleBody">
+        <div id="nav2h">
+          <a href="{{.Host}}/home"><div id="nav2hbox">home</div></a>
+          <a href="{{.Host}}/home"><div id="nav2hbox">resume</div></a>
+          <a href="{{.Host}}/home"><div id="nav2hbox">projects</div></a>
+        </div>
+        <div id= "float_about_container">
+          <div id="about_me_section">
+            <div class="TextSubsection">
+              <p>Hi, I'm Bill! Welcome to my site! I'm a computer / software engineer, graduate student researcher, (very) amateur pixel artist, and synthesizer enthusiast among many other things :)</p>
+            </div>
+            <h1 class="Header">some info about me</h1>
+            <div class="TextSubsection" i>
+              <p>My central interests lie in the intersecting realms of computer graphics, high performance computing, and heterogeneous computing (with a special affinity for design, creative engineering, and entertainment applications). </p>
+              <p>This website's frontend includes various animations, renderings, and other fun graphics content programmed and created by me!  Try interacting with the upset kasa-obake spinning around at the bottom left! As you may notice, the model is served by our webserver and then rendered in real-time with orbit controls (implemented with threejs / webgl).</p>
+              <p>The site's backend operates using my brilliant peer, Alex Johnson's, webserver package developed 100% from scratch with Golang and Typescript. This is a personal project that we have begun to collaborate on and hope to continue building out into a robust and easy to use software package (my contributions thus far include 3D model/geometry serving and compression features). Check it out <a href="https://github.com/aljo242/shmeeload.xyz">here</a>!</p>
+              <p>As my site has only been under development for a few weeks, please be wary of any possible bugs and stay posted for updates!</p>
+              <p>- Bill :)</p>
+            </div>
           </div>
-          <h1 class="Header">about me</h1>
-          <div class="TextSubsection" i>
-            <p>I’m a 24-year-old software engineer who’s passionate about high-performance, efficient computing, peer-to-peer networking, web3 and cryptography. My previous work and research concentrated on high-performance networking for supercomputers, and I believe I can apply this performance-focused perspective to my future work.</p>
-            <p>My current goal is to contribute to the movement towards decentralized apps, currencies and protocols as I believe that they can provide a novel pathway for technologies to target currently unsolved problems as well as a unique lens to view old ones. Ultimately, I want my work to make the web more efficient, useful and a better place in general.</p>
-            <p>Hobbies I enjoy during my free time include finding/curating/making cool music, playing racquet ball or soccer, cooking and watching David Lynch movies.  I aim to host some of my music projects on here soon – so stay tuned.</p>
-            <p>Click on my resume to learn more about my work. 😊</p>
-          </div>
         </div>
-        <div class="TextSubsection" id="me_img">
-          <img src="{{.Host}}/static/img/me.png" alt="picture of me">
-        </div>
-      </div>
-
-        <h1 class="Header">donate</h1>
-        <div id="donate" class="ListSubsection">
-            <ul class="Bullet">
-              <li class="textLink"><a href="{{.Host}}/donate/btc">btc</a> <a href="{{.Host}}/donate/ltc">ltc</a> <a href="{{.Host}}/donate/eth">eth</a> <a href="{{.Host}}/donate/ada">ada</a> </li>
-            </ul>
-        </div>
-      </article>
-    </section>
+        </article>
+  
+      </section>
 </body>
 </html>
