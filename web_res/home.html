@@ -13,11 +13,11 @@
     <meta name="theme-color" content="#f0f8ff"/>
     <meta name="description" content="Home landing page for Bill Derksen. Hosting my resume and some portfolio applications.  Author: Bill Derksen" />
 
-    <title>derk</title>
+    <title>derksite</title>
 
     <link rel="stylesheet" type="text/css"  href="{{.Host}}/static/css/home.css"/>
     <link rel="manifest" href="{{.Host}}/manifest.json">
-    <link rel="shortcut icon" href="{{.Host}}/static/img/1favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{.Host}}/static/img/courticon.ico" type="image/x-icon"/>
     <link rel="apple-touch-icon" href="{{.Host}}/static/img/1apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="57x57" href="{{.Host}}/static/img/1apple-touch-icon-57x57.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="{{.Host}}/static/img/1apple-touch-icon-72x72.png"/>
@@ -238,22 +238,40 @@
       <article id="mainArticleBody">
         <div id="nav2h">
           <a href="{{.Host}}/home"><div id="nav2hbox">home</div></a>
-          <a href="{{.Host}}/home"><div id="nav2hbox">resume</div></a>
-          <a href="{{.Host}}/home"><div id="nav2hbox">projects</div></a>
+          <a href="{{.Host}}/resume/home"><div id="nav2hbox">resume</div></a>
+          <a href="{{.Host}}/resume/home#sec_projects"><div id="nav2hbox">projects</div></a>
+          <a href="{{.Host}}/resume/home#sec_links"><div id="nav2hbox">links</div></a>
         </div>
         <div id= "float_about_container">
           <div id="about_me_section">
             <div class="TextSubsection">
-              <p>Hi, I'm Bill! Welcome to my site! I'm a computer / software engineer, graduate student researcher, (very) amateur pixel artist, and synthesizer enthusiast among many other things :)</p>
+              <p>Hi, I'm Bill! Welcome to my site! I'm a computer / software engineer, graduate student researcher, 
+                (very) amateur pixel artist, and synthesizer enthusiast among many other things :)</p>
             </div>
             <h1 class="Header">some info about me</h1>
             <div class="TextSubsection" i>
-              <p>My central interests lie in the intersecting realms of computer graphics, high performance computing, and heterogeneous computing (with a special affinity for design, creative engineering, and entertainment applications). </p>
-              <p>This website's frontend includes various animations, renderings, and other fun graphics content programmed and created by me!  Try interacting with the upset kasa-obake spinning around at the bottom left! As you may notice, the model is served by our webserver and then rendered in real-time with orbit controls (implemented with threejs / webgl).</p>
-              <p>The site's backend operates using my brilliant peer, Alex Johnson's, webserver package developed 100% from scratch with Golang and Typescript. This is a personal project that we have begun to collaborate on and hope to continue building out into a robust and easy to use software package (my contributions thus far include 3D model/geometry serving and compression features). Check it out <a href="https://github.com/aljo242/shmeeload.xyz">here</a>!</p>
+              <p>My central interests lie in the intersecting realms of computer graphics, virtual reality, high performance computing,
+                 and heterogeneous computing (with a special affinity for design, creative engineering, and entertainment applications). 
+                </p>
+              <p>This website's frontend includes various animations, renderings, and other fun graphics content programmed and 
+                created by me!  Try interacting with the upset <a href="https://yokai.com/karakasakozou/" style="text-decoration: none" >kasa obake</a> spinning around at the bottom left! As you may notice,
+                 the model is served by our webserver and then rendered in real-time with orbit controls (implemented with threejs / webgl).
+                </p>
+              <p>The site's backend operates using my brilliant peer @ <a  style="text-decoration: none" href="https://www.pylons.tech/">Pylons</a> | 
+                <a style="text-decoration: none" href="https://tendermint.com/">Tendermint</a>, Alex Johnson's, webserver package developed 100% from scratch 
+                with Golang and Typescript. This is a personal project that we have begun to collaborate on and hope to continue 
+                building out into a robust and easy to use software package (my contributions thus far include 3D model/geometry 
+                serving and compression features). Check it out <a  style="text-decoration: none" href="https://github.com/aljo242/shmeeload.xyz">here</a>!
+              </p>
               <p>As my site has only been under development for a few weeks, please be wary of any possible bugs and stay posted for updates!</p>
               <p>- Bill :)</p>
             </div>
+          </div>
+          <div class="TextSubsection" id="me_img">
+            <figure>
+              <img src="{{.Host}}/static/img/stealla_raytracer.jpg" alt="picture of me">
+              <figcaption><p>my dog, Stella, doing some reading</p></figcaption>
+          </figure>
           </div>
         </div>
         </article>

@@ -111,6 +111,7 @@ article {
     justify-content: center;
     margin-left: 10px;
     margin-top: 10px;
+    min-width: fit-content;
 }
 
 #nav2hbox:hover{
