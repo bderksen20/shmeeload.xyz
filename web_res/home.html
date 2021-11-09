@@ -66,7 +66,7 @@
       const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
       scene.add( ambientLight );
       const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-      directionalLight.position.set(0,0,30);
+      directionalLight.position.set(-30,30,30);
       scene.add( directionalLight );
 
       //-- setup renderer
@@ -235,6 +235,7 @@
         </div>
       </nav>
   
+
       <article id="mainArticleBody">
         <div id="nav2h">
           <a href="{{.Host}}/home"><div id="nav2hbox">home</div></a>
@@ -256,7 +257,7 @@
               <p>This website's frontend includes various animations, renderings, and other fun graphics content programmed and 
                 created by me!  Try interacting with the upset <a href="https://yokai.com/karakasakozou/" style="text-decoration: none" >kasa obake</a> spinning around at the bottom left! As you may notice,
                  the model is served by our webserver and then rendered in real-time with orbit controls (implemented with threejs / webgl).
-                </p>
+              </p>
               <p>The site's backend operates using my brilliant peer @ <a  style="text-decoration: none" href="https://www.pylons.tech/">Pylons</a> | 
                 <a style="text-decoration: none" href="https://tendermint.com/">Tendermint</a>, Alex Johnson's, webserver package developed 100% from scratch 
                 with Golang and Typescript. This is a personal project that we have begun to collaborate on and hope to continue 
